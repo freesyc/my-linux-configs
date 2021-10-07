@@ -1,3 +1,3 @@
 #Scripts
 
-Scripts para xfce e void linux.
+My personal scripts.
