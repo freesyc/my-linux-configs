@@ -1,3 +1,3 @@
 #Scripts
 
-My personal scripts.
+Scripts para meu uso pessoal, funcionam em diversas distros.
