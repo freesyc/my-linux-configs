@@ -1,4 +1,0 @@
-#!/bin/sh
-data=$(date "+%y-%m-%d_%T")
-arquivo=$HOME/Imagens/screenshot_$data.png
-xfce4-screenshooter -fs $arquivo && notify-send -i $arquivo "Tela capturada 😄️"
