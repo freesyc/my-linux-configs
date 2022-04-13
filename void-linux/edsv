@@ -1,0 +1,92 @@
+#!/bin/bash
+
+check_sv_exists () {
+	if [[ -d /etc/sv/$1 ]]; then
+		local funResult=0
+		echo "$funResult"
+	else
+		local funResult=1
+		echo "$funResult"
+	fi
+}
+
+check_sv_enabled () {
+	if [[ -d /var/service/$1 ]]; then
+		local funResult=0
+		echo "$funResult"
+	else
+		local funResult=1
+		echo "$funResult"
+	fi
+}
+
+check_status_down() {
+	if [[ -f /etc/sv/$1/down ]]; then
+		local funResult=0
+		echo "$funResult"
+	else
+		local funResult=1
+		echo "$funResult"
+	fi
+}
+
+enable_sv () {
+	ln -s /etc/sv/$1 /var/service && echo "$1 : service enabled!"
+	if [[ $2 -eq 1 ]]; then
+		printf "This service is enabled with down status, has to be started manually.\nUse ' sv up $1 ' to start the service.\n"
+	fi
+}
+
+disable_sv () {
+	rm /var/service/$1 && echo "$1: service disabled!"
+}
+
+if [[ $# -eq 2 ]]; then
+	#Enable a service
+	if [[ $1 = '-e' ]]; then
+		exists=$( check_sv_exists $2 )
+		enabled=$( check_sv_enabled $2 )
+		down=$( check_status_down $2)
+		if [[ $exists -eq 0 ]] && [[ $enabled -eq 1 ]]; then
+			enable_sv $2
+			if [[ $down -eq 0 ]]; then
+				printf "This service is enabled with down status, has to be started manually.\nUse ' sv up $3 ' to start the service.\n"
+			fi
+		
+		elif [[ $enabled -eq 0 ]]; then
+			echo "$2 : already enabled"
+		else
+			echo "$2 : don't exists in the system"
+		fi
+	fi
+	
+	#Enable service with down status, the service has to be started manually by the user
+	if [[ $1 = '-ewd' ]]; then
+		exists=$( check_sv_exists $2 )
+		enabled=$( check_sv_enabled $2 )
+		down=$( check_status_down $2 )
+		if [[ $exists -eq 0 ]] && [[ $enabled -eq 1 ]] && [[ $down -eq 1 ]]; then
+			touch /etc/sv/$2/down && enable_sv $2 1
+		elif [[ $exists -eq 1 ]]; then
+			echo "$2 : service don't exists"
+		elif [[ $enabled -eq 0 ]]; then
+			echo "$2 : service already enabled"
+		elif [[ $down -eq 0 ]]; then
+			echo "$2 : service already has a down status, use ' edsv -e $2 ' to enable it."
+		fi
+		
+	fi
+	
+	#Disable a service
+	if [[ $1 = '-d' ]]; then
+		exists=$( check_sv_exists $2)
+		enabled=$( check_sv_enabled $2)
+		if [[ $enabled -eq 0 ]]; then
+			disable_sv $2
+		elif [[ $enabled -eq 0 ]]; then
+			echo "$2 : service not enabled!"
+		else
+			echo "$2 don't exists in the system"
+		fi
+	fi
+fi
