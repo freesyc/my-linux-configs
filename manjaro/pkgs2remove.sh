@@ -5,6 +5,6 @@ if [[ $EUID != 0 ]]; then
 	exit 1
 fi
 
-pkgs="pidgin hexchat"
-
-pamac remove $pkgs
+pamac remove pidgin --no-confirm
+pamac remove hexchat --no-confirm
+pamac remove qpdfview --no-confirm
