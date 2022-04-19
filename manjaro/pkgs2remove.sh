@@ -7,4 +7,3 @@ fi
 
 pamac remove pidgin --no-confirm
 pamac remove hexchat --no-confirm
-pamac remove qpdfview --no-confirm
