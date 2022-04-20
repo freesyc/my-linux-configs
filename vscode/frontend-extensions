@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [[ $EUID = 0 ]]; then
+    echo "Não é recomendado executar esse script como super usuário."
+fi
+
+if [[ -f "/usr/bin/code" ]]; then
+    code --install-extension CoenraadS.bracket-pair-colorizer-2
+    code --install-extension ecmel.vscode-html-css
+    code --install-extension HECHTAxel.lorem-barnak
+    code --install-extension pranaygp.vscode-css-peek
+    code --install-extension ritwickdey.LiveServer
+    code --install-extension xabikos.JavaScriptSnippets
+    code --install-extension formulahendry.code-runner
+fi
