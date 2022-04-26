@@ -20,5 +20,7 @@ else if [[ -f "/usr/bin/code-oss" ]]; then
     code-oss --install-extension ritwickdey.LiveServer
     code-oss --install-extension xabikos.JavaScriptSnippets
     code-oss --install-extension formulahendry.code-runner
+else if [[ -f "/usr/bin/codiun/" ]]; then
+    echo "using codium";
     fi
 fi
