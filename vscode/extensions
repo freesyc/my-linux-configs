@@ -5,7 +5,7 @@ if [[ $EUID = 0 ]]; then
 fi
 
 if [[ -f "/usr/bin/code" ]]; then
-    code --install-extension 2gua.rainbow-brackets
+    echo "Using code"
     code --install-extension ecmel.vscode-html-css
     code --install-extension Tyriar.lorem-ipsum
     code --install-extension pranaygp.vscode-css-peek
@@ -13,14 +13,15 @@ if [[ -f "/usr/bin/code" ]]; then
     code --install-extension xabikos.JavaScriptSnippets
     code --install-extension formulahendry.code-runner
 else if [[ -f "/usr/bin/code-oss" ]]; then
+    echo "Using code-oss"
     code-oss --install-extension ecmel.vscode-html-css
-    code-oss --install-extension 2gua.rainbow-brackets
     code-oss --install-extension Tyriar.lorem-ipsum
     code-oss --install-extension pranaygp.vscode-css-peek
     code-oss --install-extension ritwickdey.LiveServer
     code-oss --install-extension xabikos.JavaScriptSnippets
     code-oss --install-extension formulahendry.code-runner
 else if [[ -f "/usr/bin/codiun/" ]]; then
-    echo "using codium";
+    echo "Using codium";
+    fi
     fi
 fi
