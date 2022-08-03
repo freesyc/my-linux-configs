@@ -1,3 +1,5 @@
+# based on half-life zsh theme 
+#
 # prompt style and colors based on Steve Losh's Prose theme:
 # https://github.com/sjl/oh-my-zsh/blob/master/themes/prose.zsh-theme
 #
@@ -66,14 +68,14 @@ function steeef_precmd {
   # check for untracked files or updated submodules, since vcs_info doesn't
   if [[ -n "$(git ls-files --other --exclude-standard 2>/dev/null)" ]]; then
     PR_GIT_UPDATE=1
-    FMT_BRANCH="${PM_RST} on ${turquoise}%b%u%c${hotpink} ●${PR_RST}"
+    FMT_BRANCH="─${PM_RST}${purple}[ ${turquoise}%b%u%c${hotpink} ●${PR_RST} ${purple}]"
   else
-    FMT_BRANCH="${PM_RST} on ${turquoise}%b%u%c${PR_RST}"
+    FMT_BRANCH="─${PM_RST}${purple}[ ${turquoise}%b%u%c${PR_RST} ${purple}]"
   fi
   zstyle ':vcs_info:*:prompt:*' formats       "${FMT_BRANCH}"
 
   vcs_info 'prompt'
-  PR_GIT_UPDATE=
+  PR_GIT_UPDATE=1
 }
 
 # vcs_info running hooks
@@ -95,11 +97,11 @@ setopt prompt_subst
 if [[ -n "$SSH_CLIENT"  ||  -n "$SSH2_CLIENT" ]]; then
   PR_HOST='%F{red}%M%f' # SSH
 else
-  PR_HOST='%F{green}%M%f' # no SSH
+  PR_HOST='%F{green}%M	%f' # no SSH
 fi
 
 local return_code="%(?..%F{red}%? ↵%f)"
 
-PROMPT="${orange}╭─${purple}%n%{$reset_color%}@${PR_HOST} in ${limegreen}%~%{$reset_color%}\$(ruby_prompt_info)\$vcs_info_msg_0_
+PROMPT="${orange}╭─[ ${limegreen}%~${orange} ]%{$reset_color%}\$(ruby_prompt_info)\$vcs_info_msg_0_
 ${orange}╰─λ%{$reset_color%} "
 RPROMPT="${return_code}"
